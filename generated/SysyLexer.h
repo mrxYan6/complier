@@ -12,14 +12,14 @@
 class  SysyLexer : public antlr4::Lexer {
 public:
   enum {
-    INT = 1, FLOAT = 2, VOID = 3, CONST = 4, RETURN = 5, IF = 6, ELSE = 7, 
-    WHILE = 8, BREAK = 9, CONTINUE = 10, LP = 11, RP = 12, LB = 13, RB = 14, 
-    LC = 15, RC = 16, COMMA = 17, SEMICOLON = 18, QUESTION = 19, COLON = 20, 
-    MINUS = 21, NOT = 22, ASSIGN = 23, ADD = 24, MUL = 25, DIV = 26, MOD = 27, 
-    AND = 28, OR = 29, EQ = 30, NEQ = 31, LT = 32, LE = 33, GT = 34, GE = 35, 
-    DecIntConst = 36, OctIntConst = 37, HexIntConst = 38, DecFloatConst = 39, 
-    HexFloatConst = 40, ID = 41, STRING = 42, WS = 43, LINE_COMMENT = 44, 
-    BLOCK_COMMENT = 45, ERR = 46
+    DecIntConst = 1, OctIntConst = 2, HexIntConst = 3, DecFloatConst = 4, 
+    HexFloatConst = 5, StringConst = 6, Int = 7, Float = 8, Void = 9, Const = 10, 
+    If = 11, Else = 12, While = 13, Break = 14, Continue = 15, Return = 16, 
+    Assign = 17, Add = 18, Sub = 19, Mul = 20, Div = 21, Mod = 22, Eq = 23, 
+    Neq = 24, Lt = 25, Gt = 26, Leq = 27, Geq = 28, Not = 29, And = 30, 
+    Or = 31, Comma = 32, Semicolon = 33, Lparen = 34, Rparen = 35, Lbracket = 36, 
+    Rbracket = 37, Lbrace = 38, Rbrace = 39, Ident = 40, Whitespace = 41, 
+    LineComment = 42, BlockComment = 43
   };
 
   SysyLexer(antlr4::CharStream *input);

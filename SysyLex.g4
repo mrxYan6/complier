@@ -1,48 +1,5 @@
 lexer grammar SysyLex;
 
-// keyword
-INT : 'int';
-FLOAT : 'float';
-VOID : 'void';
-CONST : 'const';
-RETURN : 'return';
-IF : 'if';
-ELSE : 'else';
-WHILE : 'while';
-BREAK : 'break';
-CONTINUE : 'continue'; 
-
-// delimeter
-LP : '(' ;
-RP : ')' ;
-LB : '[' ;
-RB : ']' ;
-LC : '{' ;
-RC : '}' ;
-COMMA : ',' ;
-SEMICOLON : ';';
-QUESTION : '?';
-COLON : ':';
-
-// operator
-MINUS : '-';
-NOT : '!';
-ASSIGN : '=';
-ADD : '+';
-MUL : '*';
-DIV : '/';
-MOD : '%';
-AND : '&&';
-OR : '||';
-EQ : '==';
-NEQ : '!=';
-LT : '<';
-LE : '<=';
-GT : '>';
-GE : '>=';
-
-
-
 fragment HexPrefix
     : '0x'
     | '0X'
@@ -54,19 +11,15 @@ fragment Digit : [0-9];
 fragment HexDigit : [0-9a-fA-F];
 fragment OctDegit : [0-7];
 
-// integer literal
 DecIntConst : NonzeroDigit Digit*;
 OctIntConst : OctPrefix OctDegit*;
 HexIntConst : HexPrefix HexDigit+;
-
-fragment  INT_CONST : DecIntConst | OctIntConst | HexIntConst;
 
 fragment Dot : '.';
 
 fragment Sign : '+' | '-' ;
 
 fragment Exponent : 'e' | 'E' ;
-fragment Endfloat : 'f' | 'F' ;
 fragment HexExponent : 'p' | 'P' ;
 
 fragment DecFloatFrac : Digit* Dot Digit+ | Digit+ Dot   ;
@@ -75,26 +28,59 @@ fragment HexFloatFrac : HexDigit* Dot HexDigit+ | HexDigit+ Dot ;
 fragment DecFloatExp : Exponent Sign? Digit+;
 fragment BinFloatExp : HexExponent Sign? Digit+;
 
-// float literal
-DecFloatConst : DecFloatFrac DecFloatExp? Endfloat? | Digit+ DecFloatExp Endfloat? ;
-HexFloatConst : HexPrefix HexFloatFrac BinFloatExp Endfloat? | HexPrefix HexDigit+ BinFloatExp Endfloat?;
-
-// identifier
-ID : [A-Za-z_][_0-9A-Za-z]*;
-
-// string
-STRING : '"'(ESC|.)*?'"';
-
-// for string
-fragment
-ESC : '\\"'|'\\\\';
-
-// whitespace
-WS : 
-    [ \t\r\n] -> skip
+DecFloatConst : DecFloatFrac DecFloatExp? | Digit+ DecFloatExp ;
+HexFloatConst : HexPrefix HexFloatFrac BinFloatExp
+    | HexPrefix HexDigit+ BinFloatExp
     ;
 
-// comments
-LINE_COMMENT : '//' .*? '\r'? '\n' -> skip;
-BLOCK_COMMENT : '/*'.*?'*/'-> skip ;
-ERR : [0-9]+ [a-zA-Z_]+ [0-9a-zA-Z_]* | '0'[0-7]* [8-9]+ [0-7]* ;
+fragment Escaped : '\\'['"?\\abfnrtv];
+
+StringConst : '"' (~['"\\\r\n] | Escaped)* '"';
+
+Int : 'int';
+Float : 'float';
+Void : 'void';
+
+Const : 'const';
+
+If : 'if';
+Else : 'else';
+While : 'while';
+Break : 'break';
+Continue : 'continue';
+Return : 'return';
+
+Assign : '=';
+
+Add : '+';
+Sub : '-';
+Mul : '*';
+Div : '/';
+Mod : '%';
+
+Eq : '==';
+Neq : '!=';
+Lt : '<';
+Gt : '>';
+Leq : '<=';
+Geq : '>=';
+
+Not : '!';
+And : '&&';
+Or : '||';
+
+Comma : ',';
+Semicolon : ';';
+Lparen : '(';
+Rparen : ')';
+Lbracket : '[';
+Rbracket : ']';
+Lbrace : '{';
+Rbrace : '}';
+
+Ident : [A-Za-z_][_0-9A-Za-z]*;
+
+Whitespace : [ \t\r\n]+ -> skip;
+
+LineComment : '//' ~[\r\n]* -> skip;
+BlockComment : '/*' .*? '*/' -> skip;
