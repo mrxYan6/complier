@@ -1,0 +1,15 @@
+{
+    "files.associations": {
+        "iostream": "cpp",
+        "bitset": "cpp",
+        "algorithm": "cpp",
+        "atomic": "cpp",
+        "*.tcc": "cpp",
+        "fstream": "cpp",
+        "memory": "cpp",
+        "new": "cpp",
+        "numeric": "cpp",
+        "system_error": "cpp",
+        "iosfwd": "cpp"
+    }
+}

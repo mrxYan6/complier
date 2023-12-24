@@ -1,0 +1,1 @@
+antlr4 Sysy.g4 -Dlanguage=Cpp  -o generated/
