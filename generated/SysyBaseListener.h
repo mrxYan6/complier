@@ -85,6 +85,18 @@ public:
   virtual void enterIfElse(SysyParser::IfElseContext * /*ctx*/) override { }
   virtual void exitIfElse(SysyParser::IfElseContext * /*ctx*/) override { }
 
+  virtual void enterWhile(SysyParser::WhileContext * /*ctx*/) override { }
+  virtual void exitWhile(SysyParser::WhileContext * /*ctx*/) override { }
+
+  virtual void enterBreak(SysyParser::BreakContext * /*ctx*/) override { }
+  virtual void exitBreak(SysyParser::BreakContext * /*ctx*/) override { }
+
+  virtual void enterContinue(SysyParser::ContinueContext * /*ctx*/) override { }
+  virtual void exitContinue(SysyParser::ContinueContext * /*ctx*/) override { }
+
+  virtual void enterReturn(SysyParser::ReturnContext * /*ctx*/) override { }
+  virtual void exitReturn(SysyParser::ReturnContext * /*ctx*/) override { }
+
   virtual void enterExp(SysyParser::ExpContext * /*ctx*/) override { }
   virtual void exitExp(SysyParser::ExpContext * /*ctx*/) override { }
 

@@ -83,6 +83,18 @@ public:
   virtual void enterIfElse(SysyParser::IfElseContext *ctx) = 0;
   virtual void exitIfElse(SysyParser::IfElseContext *ctx) = 0;
 
+  virtual void enterWhile(SysyParser::WhileContext *ctx) = 0;
+  virtual void exitWhile(SysyParser::WhileContext *ctx) = 0;
+
+  virtual void enterBreak(SysyParser::BreakContext *ctx) = 0;
+  virtual void exitBreak(SysyParser::BreakContext *ctx) = 0;
+
+  virtual void enterContinue(SysyParser::ContinueContext *ctx) = 0;
+  virtual void exitContinue(SysyParser::ContinueContext *ctx) = 0;
+
+  virtual void enterReturn(SysyParser::ReturnContext *ctx) = 0;
+  virtual void exitReturn(SysyParser::ReturnContext *ctx) = 0;
+
   virtual void enterExp(SysyParser::ExpContext *ctx) = 0;
   virtual void exitExp(SysyParser::ExpContext *ctx) = 0;
 

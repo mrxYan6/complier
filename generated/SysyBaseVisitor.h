@@ -19,6 +19,10 @@ public:
     return visitChildren(ctx);
   }
 
+  virtual antlrcpp::Any visitCompUnitItem(SysyParser::CompUnitItemContext *ctx) override {
+    return visitChildren(ctx);
+  }
+
   virtual antlrcpp::Any visitDecl(SysyParser::DeclContext *ctx) override {
     return visitChildren(ctx);
   }
@@ -27,7 +31,11 @@ public:
     return visitChildren(ctx);
   }
 
-  virtual antlrcpp::Any visitBType(SysyParser::BTypeContext *ctx) override {
+  virtual antlrcpp::Any visitInt(SysyParser::IntContext *ctx) override {
+    return visitChildren(ctx);
+  }
+
+  virtual antlrcpp::Any visitFloat(SysyParser::FloatContext *ctx) override {
     return visitChildren(ctx);
   }
 
@@ -35,31 +43,19 @@ public:
     return visitChildren(ctx);
   }
 
-  virtual antlrcpp::Any visitScalarConstInitVal(SysyParser::ScalarConstInitValContext *ctx) override {
-    return visitChildren(ctx);
-  }
-
-  virtual antlrcpp::Any visitListConstInitVal(SysyParser::ListConstInitValContext *ctx) override {
-    return visitChildren(ctx);
-  }
-
   virtual antlrcpp::Any visitVarDecl(SysyParser::VarDeclContext *ctx) override {
     return visitChildren(ctx);
   }
 
-  virtual antlrcpp::Any visitUninitVarDef(SysyParser::UninitVarDefContext *ctx) override {
+  virtual antlrcpp::Any visitVarDef(SysyParser::VarDefContext *ctx) override {
     return visitChildren(ctx);
   }
 
-  virtual antlrcpp::Any visitInitVarDef(SysyParser::InitVarDefContext *ctx) override {
+  virtual antlrcpp::Any visitInit(SysyParser::InitContext *ctx) override {
     return visitChildren(ctx);
   }
 
-  virtual antlrcpp::Any visitScalarInitVal(SysyParser::ScalarInitValContext *ctx) override {
-    return visitChildren(ctx);
-  }
-
-  virtual antlrcpp::Any visitListInitval(SysyParser::ListInitvalContext *ctx) override {
+  virtual antlrcpp::Any visitInitList(SysyParser::InitListContext *ctx) override {
     return visitChildren(ctx);
   }
 
@@ -67,7 +63,11 @@ public:
     return visitChildren(ctx);
   }
 
-  virtual antlrcpp::Any visitFuncType(SysyParser::FuncTypeContext *ctx) override {
+  virtual antlrcpp::Any visitFuncType_(SysyParser::FuncType_Context *ctx) override {
+    return visitChildren(ctx);
+  }
+
+  virtual antlrcpp::Any visitVoid(SysyParser::VoidContext *ctx) override {
     return visitChildren(ctx);
   }
 
@@ -75,7 +75,11 @@ public:
     return visitChildren(ctx);
   }
 
-  virtual antlrcpp::Any visitFuncFParam(SysyParser::FuncFParamContext *ctx) override {
+  virtual antlrcpp::Any visitScalarParam(SysyParser::ScalarParamContext *ctx) override {
+    return visitChildren(ctx);
+  }
+
+  virtual antlrcpp::Any visitArrayParam(SysyParser::ArrayParamContext *ctx) override {
     return visitChildren(ctx);
   }
 
@@ -87,11 +91,11 @@ public:
     return visitChildren(ctx);
   }
 
-  virtual antlrcpp::Any visitAssignment(SysyParser::AssignmentContext *ctx) override {
+  virtual antlrcpp::Any visitAssign(SysyParser::AssignContext *ctx) override {
     return visitChildren(ctx);
   }
 
-  virtual antlrcpp::Any visitExpStmt(SysyParser::ExpStmtContext *ctx) override {
+  virtual antlrcpp::Any visitExprStmt(SysyParser::ExprStmtContext *ctx) override {
     return visitChildren(ctx);
   }
 
@@ -99,27 +103,23 @@ public:
     return visitChildren(ctx);
   }
 
-  virtual antlrcpp::Any visitIfStmt1(SysyParser::IfStmt1Context *ctx) override {
+  virtual antlrcpp::Any visitIfElse(SysyParser::IfElseContext *ctx) override {
     return visitChildren(ctx);
   }
 
-  virtual antlrcpp::Any visitIfStmt2(SysyParser::IfStmt2Context *ctx) override {
+  virtual antlrcpp::Any visitWhile(SysyParser::WhileContext *ctx) override {
     return visitChildren(ctx);
   }
 
-  virtual antlrcpp::Any visitWhileStmt(SysyParser::WhileStmtContext *ctx) override {
+  virtual antlrcpp::Any visitBreak(SysyParser::BreakContext *ctx) override {
     return visitChildren(ctx);
   }
 
-  virtual antlrcpp::Any visitBreakStmt(SysyParser::BreakStmtContext *ctx) override {
+  virtual antlrcpp::Any visitContinue(SysyParser::ContinueContext *ctx) override {
     return visitChildren(ctx);
   }
 
-  virtual antlrcpp::Any visitContinueStmt(SysyParser::ContinueStmtContext *ctx) override {
-    return visitChildren(ctx);
-  }
-
-  virtual antlrcpp::Any visitReturnStmt(SysyParser::ReturnStmtContext *ctx) override {
+  virtual antlrcpp::Any visitReturn(SysyParser::ReturnContext *ctx) override {
     return visitChildren(ctx);
   }
 
@@ -135,15 +135,31 @@ public:
     return visitChildren(ctx);
   }
 
-  virtual antlrcpp::Any visitPrimaryExp1(SysyParser::PrimaryExp1Context *ctx) override {
+  virtual antlrcpp::Any visitPrimaryExp_(SysyParser::PrimaryExp_Context *ctx) override {
     return visitChildren(ctx);
   }
 
-  virtual antlrcpp::Any visitPrimaryExp2(SysyParser::PrimaryExp2Context *ctx) override {
+  virtual antlrcpp::Any visitLValExpr(SysyParser::LValExprContext *ctx) override {
     return visitChildren(ctx);
   }
 
-  virtual antlrcpp::Any visitPrimaryExp3(SysyParser::PrimaryExp3Context *ctx) override {
+  virtual antlrcpp::Any visitDecIntConst(SysyParser::DecIntConstContext *ctx) override {
+    return visitChildren(ctx);
+  }
+
+  virtual antlrcpp::Any visitOctIntConst(SysyParser::OctIntConstContext *ctx) override {
+    return visitChildren(ctx);
+  }
+
+  virtual antlrcpp::Any visitHexIntConst(SysyParser::HexIntConstContext *ctx) override {
+    return visitChildren(ctx);
+  }
+
+  virtual antlrcpp::Any visitDecFloatConst(SysyParser::DecFloatConstContext *ctx) override {
+    return visitChildren(ctx);
+  }
+
+  virtual antlrcpp::Any visitHexFloatConst(SysyParser::HexFloatConstContext *ctx) override {
     return visitChildren(ctx);
   }
 
@@ -151,19 +167,31 @@ public:
     return visitChildren(ctx);
   }
 
-  virtual antlrcpp::Any visitUnary1(SysyParser::Unary1Context *ctx) override {
+  virtual antlrcpp::Any visitUnaryExp_(SysyParser::UnaryExp_Context *ctx) override {
     return visitChildren(ctx);
   }
 
-  virtual antlrcpp::Any visitUnary2(SysyParser::Unary2Context *ctx) override {
+  virtual antlrcpp::Any visitCall(SysyParser::CallContext *ctx) override {
     return visitChildren(ctx);
   }
 
-  virtual antlrcpp::Any visitUnary3(SysyParser::Unary3Context *ctx) override {
+  virtual antlrcpp::Any visitUnaryAdd(SysyParser::UnaryAddContext *ctx) override {
     return visitChildren(ctx);
   }
 
-  virtual antlrcpp::Any visitUnaryOp(SysyParser::UnaryOpContext *ctx) override {
+  virtual antlrcpp::Any visitUnarySub(SysyParser::UnarySubContext *ctx) override {
+    return visitChildren(ctx);
+  }
+
+  virtual antlrcpp::Any visitNot(SysyParser::NotContext *ctx) override {
+    return visitChildren(ctx);
+  }
+
+  virtual antlrcpp::Any visitStringConst(SysyParser::StringConstContext *ctx) override {
+    return visitChildren(ctx);
+  }
+
+  virtual antlrcpp::Any visitFuncRParam(SysyParser::FuncRParamContext *ctx) override {
     return visitChildren(ctx);
   }
 
@@ -171,63 +199,79 @@ public:
     return visitChildren(ctx);
   }
 
-  virtual antlrcpp::Any visitExpAsRParam(SysyParser::ExpAsRParamContext *ctx) override {
+  virtual antlrcpp::Any visitDiv(SysyParser::DivContext *ctx) override {
     return visitChildren(ctx);
   }
 
-  virtual antlrcpp::Any visitStringAsRParam(SysyParser::StringAsRParamContext *ctx) override {
+  virtual antlrcpp::Any visitMod(SysyParser::ModContext *ctx) override {
     return visitChildren(ctx);
   }
 
-  virtual antlrcpp::Any visitMul2(SysyParser::Mul2Context *ctx) override {
+  virtual antlrcpp::Any visitMul(SysyParser::MulContext *ctx) override {
     return visitChildren(ctx);
   }
 
-  virtual antlrcpp::Any visitMul1(SysyParser::Mul1Context *ctx) override {
+  virtual antlrcpp::Any visitMulExp_(SysyParser::MulExp_Context *ctx) override {
     return visitChildren(ctx);
   }
 
-  virtual antlrcpp::Any visitAdd2(SysyParser::Add2Context *ctx) override {
+  virtual antlrcpp::Any visitAddExp_(SysyParser::AddExp_Context *ctx) override {
     return visitChildren(ctx);
   }
 
-  virtual antlrcpp::Any visitAdd1(SysyParser::Add1Context *ctx) override {
+  virtual antlrcpp::Any visitAdd(SysyParser::AddContext *ctx) override {
     return visitChildren(ctx);
   }
 
-  virtual antlrcpp::Any visitRel2(SysyParser::Rel2Context *ctx) override {
+  virtual antlrcpp::Any visitSub(SysyParser::SubContext *ctx) override {
     return visitChildren(ctx);
   }
 
-  virtual antlrcpp::Any visitRel1(SysyParser::Rel1Context *ctx) override {
+  virtual antlrcpp::Any visitGeq(SysyParser::GeqContext *ctx) override {
     return visitChildren(ctx);
   }
 
-  virtual antlrcpp::Any visitEq1(SysyParser::Eq1Context *ctx) override {
+  virtual antlrcpp::Any visitLt(SysyParser::LtContext *ctx) override {
     return visitChildren(ctx);
   }
 
-  virtual antlrcpp::Any visitEq2(SysyParser::Eq2Context *ctx) override {
+  virtual antlrcpp::Any visitRelExp_(SysyParser::RelExp_Context *ctx) override {
     return visitChildren(ctx);
   }
 
-  virtual antlrcpp::Any visitLAnd2(SysyParser::LAnd2Context *ctx) override {
+  virtual antlrcpp::Any visitLeq(SysyParser::LeqContext *ctx) override {
     return visitChildren(ctx);
   }
 
-  virtual antlrcpp::Any visitLAnd1(SysyParser::LAnd1Context *ctx) override {
+  virtual antlrcpp::Any visitGt(SysyParser::GtContext *ctx) override {
     return visitChildren(ctx);
   }
 
-  virtual antlrcpp::Any visitLOr1(SysyParser::LOr1Context *ctx) override {
+  virtual antlrcpp::Any visitNeq(SysyParser::NeqContext *ctx) override {
     return visitChildren(ctx);
   }
 
-  virtual antlrcpp::Any visitLOr2(SysyParser::LOr2Context *ctx) override {
+  virtual antlrcpp::Any visitEq(SysyParser::EqContext *ctx) override {
     return visitChildren(ctx);
   }
 
-  virtual antlrcpp::Any visitConstExp(SysyParser::ConstExpContext *ctx) override {
+  virtual antlrcpp::Any visitEqExp_(SysyParser::EqExp_Context *ctx) override {
+    return visitChildren(ctx);
+  }
+
+  virtual antlrcpp::Any visitLAndExp_(SysyParser::LAndExp_Context *ctx) override {
+    return visitChildren(ctx);
+  }
+
+  virtual antlrcpp::Any visitAnd(SysyParser::AndContext *ctx) override {
+    return visitChildren(ctx);
+  }
+
+  virtual antlrcpp::Any visitOr(SysyParser::OrContext *ctx) override {
+    return visitChildren(ctx);
+  }
+
+  virtual antlrcpp::Any visitLOrExp_(SysyParser::LOrExp_Context *ctx) override {
     return visitChildren(ctx);
   }
 

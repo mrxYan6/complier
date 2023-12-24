@@ -1,1 +1,1 @@
-antlr4 Sysy.g4 -Dlanguage=Cpp  -o generated/
+antlr4 Sysy.g4 -Dlanguage=Cpp -listener -visitor  -o generated/
