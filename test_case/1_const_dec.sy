@@ -1,0 +1,7 @@
+int main () {
+    int x = 0xf;
+    int y = 077;
+    int z = 8
+    float x = 0.3;
+    float y = 3e9;
+}
