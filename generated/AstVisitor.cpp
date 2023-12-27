@@ -473,3 +473,41 @@ AstVisitor::visitDimensions(const std::vector<SysyParser::ExpContext *> &ctxs) {
     }
     return ret;
 }
+
+std::shared_ptr<Declaration> AstVisitor::lookup(const std::string& name) {
+    for(auto it=m_symbol_table.begin();it!=m_symbol_table.end();it++){
+        auto it2=it->find(name);
+        if(it2!=it->end()){
+            return it2->second;
+        }    
+    }
+    return nullptr;
+}
+
+void AstVisitor::createSymbolTable() {
+    std::map<std::string, std::shared_ptr<Declaration>> tmp;
+    m_symbol_table.push_front(tmp);
+}
+
+void AstVisitor::destroySymbolTable() {
+    m_symbol_table.pop_front();
+}
+
+bool AstVisitor::insertDecl(std::shared_ptr<Declaration> decl) {
+    auto &cur_table = m_symbol_table.front();
+    auto name = decl->ident().name();
+
+    if (cur_table.find(name) != cur_table.end()) {
+        auto cur = cur_table[name];
+        if (decl->type()->to_string() != cur->type()->to_string()) {
+            std::cerr << "Error confilict declaration " << cur->ident().name() << " : " << decl->type()->to_string() << " " << cur->type()->to_string() << "" << std::endl;
+            return false;
+        } else {
+            std::cerr << "Error redeclaration " << cur->ident().name() << " : " << decl->type()->to_string() << std::endl;
+            return false;
+        }
+    } else {
+        cur_table[name] = decl;
+        return true;
+    }
+}

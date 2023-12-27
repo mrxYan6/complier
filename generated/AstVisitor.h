@@ -111,8 +111,14 @@ namespace frontend {
     private:
         std::vector<std::unique_ptr<Expression>>
         visitDimensions(const std::vector<SysyParser::ExpContext *> &ctxs);
-
         std::unique_ptr<CompileUnit> m_compile_unit;
+
+        // 当前默认在第一个符号表
+        std::list<std::map<std::string, std::shared_ptr<Declaration>>> m_symbol_table;
+        std::shared_ptr<Declaration> lookup(const std::string &name);
+        bool insertDecl(std::shared_ptr<Declaration> decl);
+        void createSymbolTable();
+        void destroySymbolTable();
     };
 
 } // namespace frontend

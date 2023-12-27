@@ -47,12 +47,7 @@ int main(int argc, const char* argv[]) {
 
     frontend::AstVisitor visitor;   //自己重写过的AstVisitor类对象
     visitor.visitCompUnit(root);   //visitor模式中从根节点开始遍历
-    auto ast = visitor.compileUnit();   
-    //AstRewriter rewriter;   //可以根据需要对AST rewrite
-    //rewriter.visit_compile_unit(*ast);
-    //string output_file_name = string(argv[1]) + ".ast.txt";
-    //ofstream of;
-    //of.open(output_file_name);
+    auto ast = visitor.compileUnit();
     ast->print(std::cout,0);   //打印AST
 
     return 0;
