@@ -113,10 +113,31 @@ namespace frontend {
         visitDimensions(const std::vector<SysyParser::ExpContext *> &ctxs);
         std::unique_ptr<CompileUnit> m_compile_unit;
 
+        struct Entry{
+            const Declaration* ptr_d;
+            const Function* ptr_f;
+            int type;
+
+            Entry() :type(-1), ptr_d(nullptr), ptr_f(nullptr) {}
+
+            static int get_type(const Declaration* decl) {
+                int type = 0;
+                int isconst = decl.const_qualified();
+                if(isconst) type = type + 4;
+                int isArry = decl.arry_qualified();
+                if(isArry) type = type + 2;
+                return type;
+            }
+            
+
+            Entry(const Declaration* decl)  : type(get_type(decl)), ptr_d(&decl), ptr_f(nullptr)  {}
+        };
+
         // 当前默认在第一个符号表
-        std::list<std::map<std::string, std::shared_ptr<Declaration>>> m_symbol_table;
-        std::shared_ptr<Declaration> lookup(const std::string &name);
-        bool insertDecl(std::shared_ptr<Declaration> decl);
+        std::list<std::map<std::string, Entry >> m_symbol_table;
+        Entry* lookup(const std::string &name);
+        bool insertDecl(const Declaration* decl);
+        bool insertFunc(const Function* decl);
         void createSymbolTable();
         void destroySymbolTable();
     };

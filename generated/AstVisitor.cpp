@@ -85,6 +85,7 @@ antlrcpp::Any AstVisitor::visitVarDecl(SysyParser::VarDeclContext *const ctx) {
         }
         ret.push_back(new Declaration(std::move(type), std::move(ident),
                                       std::move(init), false));
+        insertDecl(ret.back());
     }
     return std::make_shared<std::vector<Declaration *>>(std::move(ret));
 }
@@ -474,18 +475,18 @@ AstVisitor::visitDimensions(const std::vector<SysyParser::ExpContext *> &ctxs) {
     return ret;
 }
 
-std::shared_ptr<Declaration> AstVisitor::lookup(const std::string& name) {
+AstVisitor::Entry* AstVisitor::lookup(const std::string& name) {
     for(auto it=m_symbol_table.begin();it!=m_symbol_table.end();it++){
         auto it2=it->find(name);
         if(it2!=it->end()){
-            return it2->second;
+            return &it2->second;
         }    
     }
     return nullptr;
 }
 
 void AstVisitor::createSymbolTable() {
-    std::map<std::string, std::shared_ptr<Declaration>> tmp;
+    std::map<std::string, Entry> tmp;
     m_symbol_table.push_front(tmp);
 }
 
@@ -493,21 +494,37 @@ void AstVisitor::destroySymbolTable() {
     m_symbol_table.pop_front();
 }
 
-bool AstVisitor::insertDecl(std::shared_ptr<Declaration> decl) {
+bool AstVisitor::insertDecl(const Declaration* decl) {
     auto &cur_table = m_symbol_table.front();
+    
     auto name = decl->ident().name();
 
+    int cur_type = AstVisitor::Entry::get_type(decl);
+
     if (cur_table.find(name) != cur_table.end()) {
-        auto cur = cur_table[name];
-        if (decl->type()->to_string() != cur->type()->to_string()) {
-            std::cerr << "Error confilict declaration " << cur->ident().name() << " : " << decl->type()->to_string() << " " << cur->type()->to_string() << "" << std::endl;
-            return false;
+        auto prev = cur_table[name];
+        int prev_type = prev.type;
+        const auto &ptr = *prev.ptr_d;
+
+        if (prev_type != cur_type) {
+            std::cerr << error << " confilict declaration :" << name << '\n';
+            std::cerr << info << "preivous : " << ptr->ident() << " at line " << "\n";
+            std::cerr << info << "current : " << decl->ident() << " at line " << "\n";
         } else {
-            std::cerr << "Error redeclaration " << cur->ident().name() << " : " << decl->type()->to_string() << std::endl;
-            return false;
+            if(prev_type & 1){
+                std::cerr << error << " redeclarion Variable :" << name << '\n';
+                std::cerr << info << "preivous : " << ptr->ident() << " at line " << "\n";
+                std::cerr << info << "current : " << ptr->ident() << " at line " << "\n";
+            }
+            else {
+                std::cerr << error << " redeclarion Function :" << name << '\n';
+                std::cerr << info << "preivous : " << ptr->ident() << " at line " << "\n";
+                std::cerr << info << "current : " << ptr->ident() << " at line " << "\n";
+            }
         }
+        
     } else {
-        cur_table[name] = decl;
+        cur_table[name] = Entry(decl);
         return true;
     }
 }

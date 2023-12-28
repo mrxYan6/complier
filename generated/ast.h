@@ -13,6 +13,7 @@ namespace frontend {
 
         class SysYType : public Display {
         public:
+            virtual bool arry_qualified() const;
             virtual ~SysYType() = default;
         };
 
@@ -24,6 +25,10 @@ namespace frontend {
             virtual ~ScalarType() = default;
 
             void print(std::ostream &out, unsigned indent) const override;
+
+            bool arry_qualified() const {
+                return false;
+            }
 
             Type type() const { return m_type; }
 
@@ -45,6 +50,10 @@ namespace frontend {
 
             void print(std::ostream &out, unsigned indent) const override;
 
+            bool arry_qualified() const {
+                return true;
+            }
+
             ScalarType::Type base_type() const { return m_type.type(); }
             const std::vector<Dimension> &dimensions() const { return m_dimensions; }
             bool first_dimension_omitted() const { return m_omit_first_dimension; }
@@ -58,15 +67,17 @@ namespace frontend {
         class Identifier : public Display {
         public:
             Identifier(std::string name, bool const mangle = true)
-                    : m_name{mangle ? '$' + name : std::move(name)} {}
+                    : m_name{std::move(name)}, m_mangle(mangle) {}
             virtual ~Identifier() = default;
 
             void print(std::ostream &out, unsigned indent) const override;
 
             const std::string &name() const { return m_name; }
 
+            const bool& mangle() const {return m_mangle;}
         private:
             std::string m_name;
+            bool m_mangle;
         };
 
         class Parameter : public Display {
@@ -322,7 +333,7 @@ namespace frontend {
             const Identifier &ident() const { return m_ident; }
             const std::unique_ptr<Initializer> &init() const { return m_init; }
             bool const_qualified() const { return m_const_qualified; }
-
+            bool arry_qualified() const { return m_type->arry_qualified();}
         public:
             mutable std::shared_ptr<Var> var;
 

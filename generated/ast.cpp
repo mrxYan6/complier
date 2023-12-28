@@ -56,7 +56,7 @@ ostream &operator<<(ostream &os, const std::unique_ptr<AstScalarType> &type) {
 }
 
 ostream &operator<<(ostream &os, const Identifier &ident) {
-    os << ident.name();
+    os << (ident.mangle() ? "$" : "") << ident.name();
     return os;
 }
 
