@@ -64,6 +64,8 @@
         "cinttypes": "cpp",
         "typeinfo": "cpp",
         "optional": "cpp",
-        "variant": "cpp"
+        "variant": "cpp",
+        "wa1&2": "c",
+        "wa3&4": "c"
     }
 }

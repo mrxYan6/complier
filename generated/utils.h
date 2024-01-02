@@ -29,6 +29,9 @@ inline ostream &debug(ostream &os) {
     return os;
 }
 
+inline ostream &dgb(ostream &os) {
+}
+
 constexpr int INDENT_LEN = 2;
 
 inline void print_indent(std::ostream &os, int indent) {

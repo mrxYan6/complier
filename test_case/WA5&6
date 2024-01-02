@@ -1,0 +1,48 @@
+
+/*
+https://codeforces.com/contest/1891/problem/A
+*/
+int a[25];
+int soo(){
+    return 3;
+}
+int soo2(){
+    return 2;
+}
+int oo(){
+    return 1;
+}
+int main()
+{
+    const int number=21052132;
+    int t;
+    int j;
+    int n;
+    int flag;
+    while(t>0)
+    {
+        int j;
+        j=0;
+        n=10;
+        while(j<n)
+        {
+            j=j+1;
+        }
+        flag=1;
+        j=0;
+        float j;
+        while(j<n)
+        {
+            j=j+1;
+            if(j!=1&&j!=2&&j!=3&&j!=5&&j!=9&&j!=17)
+            {
+                if(a[j]<a[j-1]) flag=0;
+            }
+        }
+        t=t-1;
+        t(8);
+        soo=soo+1;
+    }
+    solve();
+    return 0;
+}

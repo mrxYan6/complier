@@ -151,23 +151,13 @@ void FloatLiteral::print(std::ostream &out, unsigned int indent) const {
     out << "FloatLiteral " << m_value << '\n';
 }
 
-void StringLiteral::print(std::ostream &out, unsigned int indent) const {
-    print_indent(out, indent);
-    out << "StringLiteral " << m_value << '\n';
-}
-
 void Call::print(std::ostream &out, unsigned int indent) const {
     print_indent(out, indent);
     out << "Call " << m_func << '\n';
     for (auto &arg : m_args) {
-        if (arg.index() == 0) {
-            auto &expr = std::get<std::unique_ptr<Expression>>(arg);
-            assert(expr);
-            expr->print(out, indent + INDENT_LEN);
-        } else {
-            auto &literal = std::get<StringLiteral>(arg);
-            literal.print(out, indent + INDENT_LEN);
-        }
+        auto &expr = arg;
+        assert(expr);
+        expr->print(out, indent + INDENT_LEN);
     }
 }
 
@@ -373,10 +363,7 @@ std::string FloatLiteral::to_string() const {
 std::string Call::to_string() const {
     std::string s = m_func.name() + "(";
     auto arg_string = [](const Argument &arg) {
-        if (arg.index() == 0)
-            return std::get<0>(arg)->to_string();
-        else
-            return std::get<1>(arg).value();
+        return arg->to_string();
     };
     if (!m_args.empty())
         s += arg_string(m_args[0]);

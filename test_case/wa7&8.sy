@@ -1,0 +1,9 @@
+int main() {
+    int a[3][4];
+    int b[2];
+    int c;
+
+    int sum = a[1.2][3];
+    sum = c[2];
+    sum = b;
+}

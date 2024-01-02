@@ -1,5 +1,8 @@
 #pragma once
 
+#include <map>
+#include <string>
+#include <list>
 #include "SysyBaseVisitor.h"
 #include "SysyParser.h"
 #include "ast.h"
@@ -78,8 +81,6 @@ namespace frontend {
 
         antlrcpp::Any visitNot(SysyParser::NotContext *ctx) override;
 
-        antlrcpp::Any visitStringConst(SysyParser::StringConstContext *ctx) override;
-
         antlrcpp::Any visitDiv(SysyParser::DivContext *ctx) override;
 
         antlrcpp::Any visitMod(SysyParser::ModContext *ctx) override;
@@ -113,33 +114,44 @@ namespace frontend {
         visitDimensions(const std::vector<SysyParser::ExpContext *> &ctxs);
         std::unique_ptr<CompileUnit> m_compile_unit;
 
+        int m_loop_depth = 0;
+        std::string msg;
+        int err_type;
         struct Entry{
-            const Declaration* ptr_d;
-            const Function* ptr_f;
-            int type;
-
-            Entry() :type(-1), ptr_d(nullptr), ptr_f(nullptr) {}
-
-            static int get_type(const Declaration* decl) {
-                int type = 0;
-                int isconst = decl.const_qualified();
-                if(isconst) type = type + 4;
-                int isArry = decl.arry_qualified();
-                if(isArry) type = type + 2;
-                return type;
-            }
+            bool is_const;
+            bool is_array;
+            bool is_func;
+            std::vector<int> dimensions;
+            std::vector<Entry> params;  // 函数参数，如果是函数的话
+            int base_type;
             
-
-            Entry(const Declaration* decl)  : type(get_type(decl)), ptr_d(&decl), ptr_f(nullptr)  {}
+            bool operator==(const Entry& other) const {
+                return is_const == other.is_const && is_array == other.is_array && is_func == other.is_func && dimensions == other.dimensions;
+            }
+            Entry(SysYType* p);
+            Entry(const Declaration* decl);
+            Entry(const Parameter* decl);
+            Entry() {
+                base_type = Int;
+                is_const = is_array = is_func = false;
+                dimensions = std::vector<int>();
+                params = std::vector<Entry>();
+            }
         };
+        
+        Entry current_type;     // 当前默认的类型
+        bool in_func;           // 当前是否在函数内部
+        int return_type;        // 当前返回值类型
 
         // 当前默认在第一个符号表
         std::list<std::map<std::string, Entry >> m_symbol_table;
         Entry* lookup(const std::string &name);
         bool insertDecl(const Declaration* decl);
-        bool insertFunc(const Function* decl);
+        bool insertFunc(SysYType* t, const Identifier& ident, const std::vector<std::unique_ptr<Parameter>>& params);
+        bool insertParam(const Parameter* decl);
         void createSymbolTable();
         void destroySymbolTable();
+        
     };
 
 } // namespace frontend

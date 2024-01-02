@@ -36,16 +36,16 @@ enum class BinaryOp {
 };
 
 enum ScalarType {
-    Int,
+    Int = 1,
     Float,
-    String,
+    Bool,
 };
 
 struct Type {
     int base_type;
     bool is_const;
     std::vector<int> dims; // 数组第一维可以是0
-
+    
     int nr_dims() const { return dims.size(); }
     bool is_array() const { return dims.size() > 0; }
     int nr_elems() const {

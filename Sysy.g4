@@ -100,10 +100,8 @@ unaryExp
     | Not unaryExp  # not
     ;
 
-stringConst : StringConst;
 funcRParam
     : exp
-    | stringConst
     ;
 funcRParams : funcRParam (Comma funcRParam)*;
 

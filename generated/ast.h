@@ -13,7 +13,6 @@ namespace frontend {
 
         class SysYType : public Display {
         public:
-            virtual bool arry_qualified() const;
             virtual ~SysYType() = default;
         };
 
@@ -25,10 +24,6 @@ namespace frontend {
             virtual ~ScalarType() = default;
 
             void print(std::ostream &out, unsigned indent) const override;
-
-            bool arry_qualified() const {
-                return false;
-            }
 
             Type type() const { return m_type; }
 
@@ -50,10 +45,6 @@ namespace frontend {
 
             void print(std::ostream &out, unsigned indent) const override;
 
-            bool arry_qualified() const {
-                return true;
-            }
-
             ScalarType::Type base_type() const { return m_type.type(); }
             const std::vector<Dimension> &dimensions() const { return m_dimensions; }
             bool first_dimension_omitted() const { return m_omit_first_dimension; }
@@ -63,6 +54,8 @@ namespace frontend {
             std::vector<Dimension> m_dimensions;
             bool m_omit_first_dimension;
         };
+
+        
 
         class Identifier : public Display {
         public:
@@ -229,24 +222,9 @@ namespace frontend {
             Value m_value;
         };
 
-        class StringLiteral : AstNode {
-        public:
-            using Value = std::string;
-
-            StringLiteral(Value value) : m_value{std::move(value)} {}
-            virtual ~StringLiteral() = default;
-
-            const std::string &value() const { return m_value; }
-
-            void print(std::ostream &out, unsigned indent) const override;
-
-        private:
-            Value m_value;
-        };
-
         class Call : public Expression {
         public:
-            using Argument = std::variant<std::unique_ptr<Expression>, StringLiteral>;
+            using Argument = std::unique_ptr<Expression>;
 
             Call(Identifier func, std::vector<Argument> args, unsigned line)
                     : m_func{std::move(func)}, m_args{std::move(args)}, m_line(line) {}
@@ -333,7 +311,6 @@ namespace frontend {
             const Identifier &ident() const { return m_ident; }
             const std::unique_ptr<Initializer> &init() const { return m_init; }
             bool const_qualified() const { return m_const_qualified; }
-            bool arry_qualified() const { return m_type->arry_qualified();}
         public:
             mutable std::shared_ptr<Var> var;
 
@@ -385,7 +362,7 @@ namespace frontend {
             While(std::unique_ptr<Expression> cond, std::unique_ptr<Statement> body)
                     : m_cond{std::move(cond)}, m_body{std::move(body)} {}
             virtual ~While() = default;
-
+            
             const std::unique_ptr<Expression> &cond() const { return m_cond; }
             const std::unique_ptr<Statement> &body() const { return m_body; }
 

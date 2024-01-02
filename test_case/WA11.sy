@@ -1,0 +1,19 @@
+int gcd(int x,int y)
+{
+    if(y==0) return x;
+    return gcd(y,x%y);
+}
+int a[25];
+int main()
+{
+    const int number = 21052132;
+    int t;
+    int j;
+    float flag;
+    flag = 0;
+    flag = flag + gcd(t,j);
+    t = t + gcd(flag, j);
+    j = j + gcd(t, flag);
+    
+    return 0;
+}

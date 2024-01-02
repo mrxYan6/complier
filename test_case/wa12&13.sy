@@ -7,9 +7,13 @@ int main(){
         if(i == 50){
             i = i + 1;
             continue;
+        } else if (i == 20) {
+            break;
         }
         sum = sum + i;
         i = i + 1;
     }
+    continue;
+    break;
     return sum;
 }

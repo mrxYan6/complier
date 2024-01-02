@@ -12,6 +12,7 @@
 #include "AstVisitor.h"
 #include "AstRewriter.h"
 
+#include "utils.h"
 using namespace std;
 using namespace antlr4;
 using namespace frontend;
@@ -27,6 +28,8 @@ int main(int argc, const char* argv[]) {
             filename = argv[i];
         }
     }
+
+    error(std::cerr) << "TEST\n";
 
     if (!print_ast) {
         std::string source;
